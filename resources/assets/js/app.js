@@ -13,6 +13,10 @@ import router from './router/router';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('quizzes', require('./components/Quizzes'));
+Vue.component('staggered-fade', require('./transitions/Staggered-Fade'));
+
+
 const app = new Vue({
     el: '#app',
     router
