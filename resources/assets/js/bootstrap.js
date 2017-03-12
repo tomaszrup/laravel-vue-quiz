@@ -3,10 +3,7 @@ import VueRouter from 'vue-router';
 //import Vuex from 'vuex';
 import axios from 'axios';
 import lodash from 'lodash';
-
-//import moment from 'moment';
-//import 'moment/locale/pl';
-
+import moment from 'moment';
 
 window.Vue = Vue;
 //window.Vuex = Vuex;
@@ -21,5 +18,4 @@ window.axios.defaults.headers.common = {
 
 window._ = lodash;
 
-//window.moment = moment;
-//moment.locale('pl');
+window.moment = moment;
