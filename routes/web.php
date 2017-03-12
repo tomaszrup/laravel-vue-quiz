@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('master');
 });
+
+Route::group(['prefix' => 'api'], function() {
+
+  Route::resource('quizzes', 'Api\ApiQuizzesController');
+
+  Route::resource('quizzes.questions', 'Api\ApiQuizzesQuestionsController');
+
+});
