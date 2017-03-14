@@ -17,7 +17,7 @@ class CreateQuizzesTable extends Migration
             $table->increments('id');
             $table->text('title');
             $table->text('author');
-            $table->integer('completions');
+            $table->integer('completions')->nullable()->default(0);
             $table->timestamps();
         });
     }

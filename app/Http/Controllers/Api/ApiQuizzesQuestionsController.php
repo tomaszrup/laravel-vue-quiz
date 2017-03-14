@@ -21,11 +21,11 @@ class ApiQuizzesQuestionsController extends ApiController
     {
       $quiz = Quiz::find($id);
 
-      if(!$quiz) return $this->respondNotFound('Nie ma takiego quizu');
+      if(!$quiz) return $this->respondNotFound('There is no such quiz');
 
       $questions = $quiz->questions;
 
-      if(!$questions->first()) return $this->respondNotFound('Ten quiz nie ma pytań');
+      if(!$questions->first()) return $this->respondNotFound('This quiz has no questions');
 
       $questions = $this->transformer->transformCollection($questions);
 

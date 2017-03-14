@@ -20,8 +20,12 @@ class ApiController extends Controller
     return $this;
   }
 
-  public function respondNotFound($message = "Nie znaleziono.") {
+  public function respondNotFound($message = "Resource not found.") {
     return $this->setStatusCode(404)->respondWithError($message);
+  }
+
+  public function respondUnprocessable($message = "Unprocessable entity") {
+    return $this->setStatusCode(422)->respondWithError($message);
   }
 
   public function respond($data) {

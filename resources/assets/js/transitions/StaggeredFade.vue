@@ -5,6 +5,7 @@
     v-on:before-enter="beforeEnter"
     v-on:enter="enter"
     tag="div"
+    appear
   >
     <slot></slot>
   </transition-group>
@@ -20,7 +21,7 @@ export default {
       setTimeout(function () {
         Velocity(
           el,
-          { opacity: 1, transform: "translateY(200px)" },
+          { opacity: 1 },
           { complete: done }
         );
       }, delay);

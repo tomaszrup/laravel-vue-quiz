@@ -24,10 +24,10 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
     return [
         'body' => $faker->sentence(10),
         'quiz_id' => $faker->numberBetween(1, 5),
-        'answer_a' => $faker->sentence(10),
-        'answer_b' => $faker->sentence(10),
-        'answer_c' => $faker->sentence(10),
-        'answer_d' => $faker->sentence(10),
+        'a' => $faker->sentence(10),
+        'b' => $faker->sentence(10),
+        'c' => $faker->sentence(10),
+        'd' => $faker->sentence(10),
         'correct_answer' => 'a'
     ];
 });
