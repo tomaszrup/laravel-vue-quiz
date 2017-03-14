@@ -7,21 +7,41 @@
             Simple Laravel/Vue Quiz App
           </h1>
           <h2 class="subtitle">
-            Have fun!
+            It uses Bulma for the CSS. Have fun!
           </h2>
         </div>
       </div>
     </section>
     <section class="container" style="padding-top: 40px; padding-bottom: 40px;">
-      <quizzes></quizzes>
+      <div class="columns">
+        <div class="column is-6">
+          <h1 class="title">
+            Latest quizzes
+          </h1>
+          <quizzes :amount="5"></quizzes>
+        </div>
+
+        <div class="column is-6">
+          <h1 class="title">
+            Most completed
+          </h1>
+          <quizzes :amount="5" sort-by="completions" sort-dir="desc"></quizzes>
+        </div>
+      </div>
     </section>
   </div>
 </template>
 
 <script>
 export default {
+  created() {
+
+  }
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+  .container {
+    padding: 10px;
+  }
 </style>

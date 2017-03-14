@@ -14,8 +14,12 @@ import router from './router/router';
  */
 
 Vue.component('quizzes', require('./components/Quizzes'));
-Vue.component('staggered-fade', require('./transitions/Staggered-Fade'));
+Vue.component('main-nav', require('./components/MainNav'))
 
+Vue.component('staggered-fade', require('./transitions/StaggeredFade'));
+Vue.component('loader', require('./components/Loader'));
+
+window.bus = new Vue();
 
 const app = new Vue({
     el: '#app',

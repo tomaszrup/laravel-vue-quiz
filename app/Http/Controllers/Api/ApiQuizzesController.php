@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Transformers\QuizTransformer;
+use Illuminate\Support\Facades\Schema;
 use App\Quiz;
 
 class ApiQuizzesController extends ApiController
@@ -15,11 +16,19 @@ class ApiQuizzesController extends ApiController
       $this->transformer = $transformer;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-      $quizzes = Quiz::all();
 
-      if(!$quizzes) return $this->respondNotFound('Nie ma tu obecnie quizów.');
+      if($request->sortby) {
+        if(Schema::hasColumn('quizzes', $request->sortby)) $quizzes = Quiz::orderBy($request->sortby, ($request->sortdir ?: 'asc'));
+      }
+      else $quizzes = Quiz::latest();
+
+      if($request->amount) $quizzes = $quizzes->take($request->amount);
+
+      $quizzes = $quizzes->get();
+
+      if(!$quizzes) return $this->respondNotFound('No quizzes were found.');
 
       $quizzes = $this->transformer->transformCollection($quizzes);
 
@@ -34,7 +43,7 @@ class ApiQuizzesController extends ApiController
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -45,7 +54,27 @@ class ApiQuizzesController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+       $this->validate($request, [
+         'title' => 'required',
+         'author' => 'required',
+         'questions.*.body' => 'required',
+         'questions.*.a' => 'required',
+         'questions.*.b' => 'required',
+         'questions.*.c' => 'required',
+         'questions.*.d' => 'required',
+         'questions.*.correct_answer' => 'required'
+       ]);
+
+
+       $quiz = Quiz::create([
+         'title' => $request->title,
+         'author' => $request->author
+       ]);
+
+       $quiz->addQuestions($request->questions);
+
+       return $this->respond('Quiz has been added.');
+
     }
 
     /**
@@ -58,7 +87,7 @@ class ApiQuizzesController extends ApiController
     {
        $quiz = Quiz::find($id);
 
-       if(!$quiz) return $this->respondNotFound('Nie ma takiego quizu');
+       if(!$quiz) return $this->respondNotFound('There is no such quiz');
 
        $quiz = $this->transformer->transform($quiz);
 

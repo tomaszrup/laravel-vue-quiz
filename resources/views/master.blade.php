@@ -16,17 +16,16 @@
         </script>
     </head>
     <body>
-      <div id="app" style="display: flex; flex-direction: column">
-        <router-view style="flex: 1"></router-view>
-        <footer class="footer">
-          <div class="container">
-            <div class="content has-text-centered">
-              <p>
-                <strong>Quiz</strong> by <a href="http://github.com/tomaszrup">Tomasz Rup</a>.
-              </p>
-            </div>
-          </div>
-        </footer>
+      <div id="app">
+        @include('_nav')
+
+        <div style="min-height: 100%">
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
+        </div>
+
+        @include('_footer')
       </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.4.3/velocity.min.js"></script>
       <script src="/js/app.js"></script>
