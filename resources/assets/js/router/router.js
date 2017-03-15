@@ -8,6 +8,11 @@ const routes = [
   {
     path: '/add',
     component: require('./../views/Add')
+  },
+  {
+    path: '/quiz/:quiz',
+    component: require('./../views/Quiz'),
+    name: 'quiz'
   }
 ];
 

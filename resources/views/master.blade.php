@@ -16,13 +16,15 @@
         </script>
     </head>
     <body>
-      <div id="app">
+      <div id="app" style="display: flex; flex-direction: column">
         @include('_nav')
 
-        <div style="min-height: 100%">
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
+        <div style="flex: 1">
+          <transition name="fade" mode="out-in">
+            <keep-alive exclude="quiz">
+              <router-view></router-view>
+            </keep-alive>
+          </transition>
         </div>
 
         @include('_footer')

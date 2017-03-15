@@ -51,7 +51,7 @@
       </div>
 
       <div class="question-add has-text-centered" style="margin-top: 15px">
-        <button :class="['button', 'is-primary', 'is-large', {'is-disabled': emptyValues}]" @click="submit()">
+        <button :class="['button', 'is-primary', 'is-large', {'is-disabled': emptyValues}, {'is-loading': submitting}]" @click="submit()">
           Submit
         </button>
       </div>
@@ -82,7 +82,9 @@ export default {
     return {
       title: '',
       author: '',
-      questions: []
+      questions: [],
+      submitting: false,
+      indexes: 0
     }
   },
   created() {
@@ -103,15 +105,17 @@ export default {
     submit() {
       if(!confirm('Are you sure?')) return;
 
+      this.submitting = true;
+
       axios.post('/api/quizzes', {
         title: this.title,
         author: this.author,
         questions: this.questions
       }).then((response) => {
         bus.$emit('quiz:added', response.data);
-        this.$router.push('/');
         this.questions = [new Question];
-
+        this.submitting = false;
+        this.$router.push('/');
         this.title = '';
         this.author = '';
       }).catch((error) => {

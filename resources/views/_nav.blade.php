@@ -1,5 +1,5 @@
 <main-nav inline-template>
-  <div class="container">
+  <div class="container" style="width: 100%">
     <nav class="nav">
       <div class="nav-left">
         <router-link to="/" class="nav-item">
