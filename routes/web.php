@@ -21,4 +21,6 @@ Route::group(['prefix' => 'api'], function() {
 
   Route::resource('quizzes.questions', 'Api\ApiQuizzesQuestionsController');
 
+  Route::post('quizzes/{quiz}/complete', 'Api\ApiQuizzesController@complete');
+
 });

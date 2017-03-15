@@ -127,4 +127,8 @@ class ApiQuizzesController extends ApiController
     {
         //
     }
+
+    public function complete(Quiz $quiz) {
+      return 'ok';
+    }
 }
