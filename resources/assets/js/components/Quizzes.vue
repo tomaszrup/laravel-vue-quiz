@@ -27,7 +27,7 @@ export default {
   },
   created() {
     this.callApi();
-    bus.$on('quiz:added', this.callApi);
+    bus.$on('quizzes:refresh', this.callApi);
   },
   methods: {
     fromNow(date) {

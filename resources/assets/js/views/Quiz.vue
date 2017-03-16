@@ -1,6 +1,6 @@
 <template>
-  <div class="wrap" v-if="quiz.title && questions[0]">
-    <section class="hero is-info">
+  <div class="wrap">
+    <section class="hero is-info" v-if="quiz.title">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -9,31 +9,39 @@
         </div>
       </div>
     </section>
-    <div class="container">
-      <div class="box" v-for="question, index in questions">
-        <div class="question-helper">
-          Question #{{index + 1}}
-        </div>
-        <div class="question-body">
-          {{question.body}}
-        </div>
-        <div class="columns">
-          <div class="column" v-for="letter in ['a', 'b', 'c', 'd']">
-            <span :class="['answer-icon', {'is-selected': answers[question.id] == letter}]" @click="setAnswer(question.id, letter)">{{uppercase(letter)}}</span>
-            {{question.answers[letter]}}
+    <div class="quiz-questions" v-if="questions[0] && !finished">
+      <div class="container">
+        <div class="box" v-for="question, index in questions">
+          <div class="question-helper">
+            Question #{{index + 1}}
+          </div>
+          <div class="question-body">
+            {{question.body}}
+          </div>
+          <div class="columns">
+            <div class="column" v-for="letter in ['a', 'b', 'c', 'd']">
+              <span :class="['answer-icon', {'is-selected': answers[question.id] == letter}]" @click="setAnswer(question.id, letter)">{{uppercase(letter)}}</span>
+              {{question.answers[letter]}}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="has-text-centered" style="margin-top: 15px">
-        <button :class="['button', 'is-primary', 'is-large', {'is-loading': submitting}]" @click="complete()">
-          Complete
-        </button>
+        <div class="has-text-centered" style="margin-top: 15px">
+          <button :class="['button', 'is-primary', 'is-large', {'is-loading': submitting}]" @click="complete()">
+            Complete
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="container" v-else>
-    <loader></loader>
+    <div class="container" style="display: flex; height: 100%; width: 100%; justify-content: center; align-items: center" v-else-if="!finished">
+      <loader></loader>
+    </div>
+    <div class="container" v-else>
+      <h1 class="title">
+        Your score: {{score}}/{{questions.length}}
+      </h1>
+      <progress class="progress is-primary" :value="score" :max="questions.length"></progress>
+    </div>
   </div>
 </template>
 
@@ -45,7 +53,9 @@ export default {
       questions: [],
       quiz: [],
       answers: [],
-      submitting: false
+      submitting: false,
+      finished: false,
+      score: 0
     }
   },
   created() {
@@ -53,11 +63,11 @@ export default {
   },
   methods: {
     callApi() {
-      axios.get('/api/quizzes/'+this.quizNumber).then((response) => {
+      axios.get('/api/quizzes/'+this.quizId).then((response) => {
         this.quiz = response.data.data;
       });
 
-      axios.get('/api/quizzes/'+this.quizNumber+'/questions').then((response) => {
+      axios.get('/api/quizzes/'+this.quizId+'/questions').then((response) => {
         this.questions = response.data.data;
       });
     },
@@ -65,16 +75,24 @@ export default {
       return _.upperCase(letter);
     },
     setAnswer(id, letter) {
-      console.log('>>');
       this.answers[id] = letter;
       this.answers.push();
     },
     complete() {
+      this.submitting = true;
 
+      axios.post('/api/quizzes/'+this.quizId+'/complete', {
+        answers: this.answers
+      }).then((response) => {
+        this.submitting = false;
+        this.finished = true;
+        this.score = response.data.data;
+        bus.$emit('quiz:completed');
+      });
     }
   },
   computed: {
-    quizNumber() {
+    quizId() {
       return this.$route.params.quiz;
     }
   }

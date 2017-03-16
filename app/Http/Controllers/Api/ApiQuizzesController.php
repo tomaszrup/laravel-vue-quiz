@@ -128,7 +128,11 @@ class ApiQuizzesController extends ApiController
         //
     }
 
-    public function complete(Quiz $quiz) {
-      return 'ok';
+    public function complete(Quiz $quiz, Request $request) {
+      $answers = $request->answers;
+
+      $score = $quiz->check($answers)->complete()->getScore();
+
+      return $this->respond($score);
     }
 }
