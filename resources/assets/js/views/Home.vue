@@ -28,6 +28,13 @@
           <quizzes :amount="5" sort-by="completions" sort-dir="desc"></quizzes>
         </div>
       </div>
+
+      <div>
+        <h1 class="title">
+          All quizzes
+        </h1>
+        <quizzes sort-by="title" sort-dir="asc"></quizzes>
+      </div>
     </section>
   </div>
 </template>
@@ -35,7 +42,12 @@
 <script>
 export default {
   created() {
-
+    bus.$on('quiz:added', () => {
+      bus.$emit('quizzes:refresh');
+    });
+    bus.$on('quiz:completed', () => {
+      bus.$emit('quizzes:refresh');
+    });
   }
 }
 </script>
