@@ -1,10 +1,18 @@
 <template>
-  <div class="wrap">
-    <section class="hero is-info" v-if="quiz.title">
+  <div class="wrap" style="height: 100%">
+    <section class="hero is-info" v-if="quiz.title && questions[0]">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            {{quiz.title}} by {{quiz.author}}
+            {{quiz.title}} by {{quiz.author.name}}
+          </h1>
+          <h1 class="subtitle is-small">
+            <span class="tag is-warning" v-if="quiz.completed">
+              You have already completed this quiz and won't receive points for completing it.
+            </span>
+            <span class="tag is-warning" v-else-if="quiz.author.id == $root.user.id">
+              You are the author of this quiz and won't receive points for completing it.
+            </span>
           </h1>
         </div>
       </div>
@@ -59,6 +67,7 @@ export default {
     }
   },
   created() {
+    bus.$emit('quiz:entered', this.quizId);
     this.callApi();
   },
   methods: {

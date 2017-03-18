@@ -17,17 +17,25 @@
     </head>
     <body>
       <div id="app" style="display: flex; flex-direction: column">
-        @include('_nav')
 
-        <div style="flex: 1">
-          <transition name="fade" mode="out-in">
-            <keep-alive exclude="quiz">
-              <router-view></router-view>
-            </keep-alive>
-          </transition>
+        <div class="app-loader" v-if="!user">
+          <loader></loader>
         </div>
 
-        @include('_footer')
+        <div class="app-content" style="display: flex; flex-direction: column; flex: 1" v-else>
+          <main-nav></main-nav>
+
+          <div style="flex: 1">
+            <transition name="fade" mode="out-in">
+              <keep-alive exclude="quiz">
+                <router-view></router-view>
+              </keep-alive>
+            </transition>
+          </div>
+
+          @include('_footer')
+        </div>
+
       </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.4.3/velocity.min.js"></script>
       <script src="/js/app.js"></script>

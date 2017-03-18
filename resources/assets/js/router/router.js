@@ -13,10 +13,15 @@ const routes = [
     path: '/quiz/:quiz',
     component: require('./../views/Quiz'),
     name: 'quiz'
+  },
+  {
+    path: '*',
+    component: require('./../views/NotFound')
   }
 ];
 
 export default new VueRouter({
   routes,
-  linkActiveClass: 'is-active'
+  linkActiveClass: 'is-active',
+  mode: 'history'
 });

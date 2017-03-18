@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use App\Completion;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'password', 'login', 'points'
     ];
 
     /**
@@ -26,4 +27,29 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function completeQuiz($quiz) {
+
+      if($quiz->user == $this) return $quiz;
+      if($this->hasCompleted($quiz)) return $quiz;
+
+      Completion::create([
+        'user_id' => $this->id,
+        'quiz_id' => $quiz->id
+      ]);
+
+      return $quiz;
+    }
+
+    public function hasCompleted($quiz) {
+      return Completion::where('user_id', $this->id)->where('quiz_id', $quiz->id)->get()->first();
+    }
+
+    public function completions() {
+      return $this->hasMany('App\Completion');
+    }
+
+    public function quizzes() {
+      return $this->hasMany('App\Quiz');
+    }
 }
