@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Transformers\QuizTransformer;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 use App\Quiz;
 
 class ApiQuizzesController extends ApiController
@@ -19,16 +20,17 @@ class ApiQuizzesController extends ApiController
     public function index(Request $request)
     {
 
-      if($request->sortby) {
-        if(Schema::hasColumn('quizzes', $request->sortby)) $quizzes = Quiz::orderBy($request->sortby, ($request->sortdir ?: 'asc'));
-      }
-      else $quizzes = Quiz::latest();
+      $quizzes = Quiz::leftJoin('completions', 'completions.quiz_id', 'quizzes.id')
+                      ->addSelect('quizzes.*', DB::raw('count(completions.quiz_id) as completions'))
+                      ->groupBy('quizzes.id');
 
-      if($request->amount) $quizzes = $quizzes->take($request->amount);
+      if($request->sortby) $quizzes = $quizzes->orderBy($request->sortby, ($request->sortdir ?: 'asc'));
+      else $quizzes = $quizzes->latest();
 
-      $quizzes = $quizzes->get();
+      if(!$quizzes->first()) return $this->respondNotFound('No quizzes were found.');
 
-      if(!$quizzes) return $this->respondNotFound('No quizzes were found.');
+      if($request->amount) $quizzes = $quizzes->take($request->amount)->get();
+      else $quizzes = $quizzes->take(Quiz::count())->get();
 
       $quizzes = $this->transformer->transformCollection($quizzes);
 
@@ -56,7 +58,6 @@ class ApiQuizzesController extends ApiController
     {
        $this->validate($request, [
          'title' => 'required',
-         'author' => 'required',
          'questions.*.body' => 'required',
          'questions.*.a' => 'required',
          'questions.*.b' => 'required',
@@ -66,9 +67,8 @@ class ApiQuizzesController extends ApiController
        ]);
 
 
-       $quiz = Quiz::create([
-         'title' => $request->title,
-         'author' => $request->author
+       $quiz = $request->user()->quizzes()->create([
+         'title' => $request->title
        ]);
 
        $quiz->addQuestions($request->questions);
@@ -131,7 +131,7 @@ class ApiQuizzesController extends ApiController
     public function complete(Quiz $quiz, Request $request) {
       $answers = $request->answers;
 
-      $score = $quiz->check($answers)->complete()->getScore();
+      $score = $request->user()->completeQuiz($quiz)->check($answers)->getScore();
 
       return $this->respond($score);
     }

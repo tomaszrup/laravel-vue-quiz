@@ -3,12 +3,9 @@
     <section class="hero is-medium is-primary is-bold">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">
-            Simple Laravel/Vue Quiz App
+          <h1 class="title is-medium has-text-centered">
+            Hello there, want to answer some questions?
           </h1>
-          <h2 class="subtitle">
-            It uses Bulma for the CSS. Have fun!
-          </h2>
         </div>
       </div>
     </section>

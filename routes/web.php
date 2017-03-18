@@ -11,16 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('master');
-});
+Auth::routes();
 
-Route::group(['prefix' => 'api'], function() {
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
 
   Route::resource('quizzes', 'Api\ApiQuizzesController');
+
+  Route::resource('users', 'Api\ApiUsersController');
+
+  Route::get('user', 'Api\ApiUsersController@user');
 
   Route::resource('quizzes.questions', 'Api\ApiQuizzesQuestionsController');
 
   Route::post('quizzes/{quiz}/complete', 'Api\ApiQuizzesController@complete');
 
 });
+
+Route::get('/{any1?}/{any2?}', function () {
+    return view('master');
+})->middleware('auth');

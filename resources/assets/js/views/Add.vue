@@ -15,12 +15,6 @@
         <div class="column is-7">
           <input type="text" v-model="title" class="quiz-title" placeholder="Your quiz title here">
         </div>
-        <div class="column" style="display: flex; justify-content: center; align-items: center">
-          by
-        </div>
-        <div class="column is-4">
-          <input type="text" v-model="author" class="quiz-title" placeholder="Your name here">
-        </div>
       </div>
 
       <div class="box" v-for="question, index in questions">
@@ -138,7 +132,7 @@ export default {
         }
       });
 
-      return hasEmptyValue ? true : (this.title.isEmpty() || this.author.isEmpty());
+      return hasEmptyValue || this.title.isEmpty();
     }
   }
 }

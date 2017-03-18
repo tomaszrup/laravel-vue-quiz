@@ -10,10 +10,9 @@ class Quiz extends Model
 
     protected $score = 0;
 
-    public function complete() {
-      $this->completions += 1;
-      $this->save();
-      return $this;
+
+    public function getScore() {
+      return $this->score;
     }
 
     public function check($answers) {
@@ -25,14 +24,18 @@ class Quiz extends Model
       return $this;
     }
 
-    public function getScore() {
-      return $this->score;
-    }
-
     public function addQuestions($questions) {
       foreach ($questions as $key => $question) {
         $this->questions()->create($question);
       }
+    }
+
+    public function completions() {
+      return $this->hasMany('App\Completion');
+    }
+
+    public function user() {
+      return $this->belongsTo('App\User');
     }
 
     public function questions() {
