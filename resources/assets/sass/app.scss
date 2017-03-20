@@ -4,6 +4,9 @@ body, html, #app {
   height: 100%;
   min-height: 100%;
   width: 100%;
+  padding: 0px;
+  max-width: 100%;
+  margin: 0px;
 }
 
 .container {
@@ -53,6 +56,17 @@ body, html, #app {
   color: white;
 }
 
+.hidden-init {
+  opacity: 0;
+  transition: 1s all ease-in-out;
+  transform: translateY(15px);
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+}
+
 .flex-centered-both {
   display: flex;
   justify-content: center;
@@ -91,4 +105,10 @@ body, html, #app {
 
 [v-cloak] {
   display: none;
+}
+
+.main-image {
+  width: 60%;
+  max-width: 300px;
+  height: auto;
 }

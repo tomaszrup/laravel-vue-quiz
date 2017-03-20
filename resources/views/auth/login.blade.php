@@ -61,38 +61,56 @@
             </button>
           </div>
         </div>
-      <div class="has-text-centered text-white flex-centered-both flex-column">
+      <div class="has-text-centered text-white flex-centered-both flex-column" @click="scrollDown()">
         Learn more
         <div class="learn-more-arrow">
           ↓
         </div>
       </div>
     </div>
-    <div class="container" style="padding-top: 50px">
-      <h1 class="title is-1 has-text-centered">
+    <div class="container" style="padding-top: 50px" id="content">
+      <h1 :class="['title', 'is-1', 'has-text-centered', 'hidden-init', {'visible': level > -1}]" id="0">
         <strong>How does it work?</strong>
       </h1>
-      <h1 class="subtitle has-text-centered">
-        It's really simple to get going.
-      </h1>
-      <div class="columns" style="padding-top: 50px">
-        <div class="column has-text-centered">
-          <h1 class="title">
-            1. Sign in and start completing quizzes.
+
+      <div :class="['columns', 'hidden-init', {'visible': level > 0}]" style="padding-top: 50px" id="1">
+        <div class="column flex-centered-both flex-column">
+          <img src="/img/rocket.png" alt="Rocket" class="main-image">
+        </div>
+        <div class="column flex-centered-both flex-column">
+          <h1 class="title is-2">
+            Sign up and start completing quizzes.
           </h1>
           <h1 class="subtitle">
             Everyone in the community is free to create a quizs, so you won't be bored!
           </h1>
+        </div>
+      </div>
 
-          <h1 class="title" style="padding-top: 100px">
-            2. Create and share your own quizzes.
+      <div :class="['columns', 'hidden-init', {'visible': level > 1}]" style="padding-top: 50px" id="2">
+        <div class="column flex-centered-both flex-column is-hidden-tablet">
+          <img src="/img/network.png" alt="Rocket" class="main-image">
+        </div>
+        <div class="column flex-centered-both flex-column">
+          <h1 class="title is-2">
+            Create and share your own quizzes.
           </h1>
           <h1 class="subtitle">
-            Get people interested, and your quiz certainly won't go unnoticed!
+            Have an idea? Get people interested, and your quiz certainly won't go unnoticed!
           </h1>
+        </div>
+        <div class="column flex-centered-both flex-column is-hidden-mobile">
+          <img src="/img/network.png" alt="Rocket" class="main-image">
+        </div>
+      </div>
 
-          <h1 class="title" style="padding-top: 100px">
-            3. Earn points and become the quiz master!
+      <div :class="['columns', 'hidden-init', {'visible': level > 2}]" style="padding-top: 50px" id="3">
+        <div class="column flex-centered-both flex-column">
+          <img src="/img/trophy.png" alt="Rocket" class="main-image">
+        </div>
+        <div class="column flex-centered-both flex-column">
+          <h1 class="title is-2">
+            Earn points and become the quiz master!
           </h1>
           <h1 class="subtitle">
             You get points for each unique quiz you complete. You also get double points when your quiz is completed by someone else!
@@ -137,7 +155,16 @@
         </div>
       </div>
     </div>-->
-    <div class="footer" style="background-color: #111"></div>
+    <div class="footer" style="background-color: #111; margin-top: 50px">
+      <div class="container">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <p><strong>The Quiz</strong> by <a href="mailto:kontakt@tomaszrup.pl">Tomasz Rup</a></p>
+            <p>Tomasz Rup {{Date('Y')}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </login>
 @endsection
