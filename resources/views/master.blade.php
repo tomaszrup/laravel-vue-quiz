@@ -16,16 +16,16 @@
         </script>
     </head>
     <body>
-      <div id="app" style="display: flex; flex-direction: column">
+      <div id="app" class="flex-column">
 
         <div class="app-loader" v-if="!user">
           <loader></loader>
         </div>
 
-        <div class="app-content" style="display: flex; flex-direction: column; flex: 1" v-else>
+        <div class="app-content flex-column flex-1" v-else>
           <main-nav></main-nav>
 
-          <div style="flex: 1">
+          <div class="flex-1">
             <transition name="fade" mode="out-in">
               <keep-alive exclude="quiz">
                 <router-view></router-view>

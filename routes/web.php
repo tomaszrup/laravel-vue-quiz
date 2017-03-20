@@ -11,7 +11,10 @@
 |
 */
 
+
 Auth::routes();
+
+//Route::get('welcome', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
 

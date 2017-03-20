@@ -3,7 +3,7 @@
     <nav class="nav">
       <div class="nav-left">
         <router-link to="/" class="nav-item">
-          <h1 class="title">Quiz</h1>
+          <h1 class="title">The Quiz</h1>
         </router-link>
       </div>
 
@@ -18,7 +18,7 @@
           Home
         </router-link>
         <span class="nav-item">
-          <router-link to="/add" class="button is-primary" exact>
+          <router-link to="add" class="button is-primary" exact>
             <span>Add a quiz</span>
           </router-link>
         </span>

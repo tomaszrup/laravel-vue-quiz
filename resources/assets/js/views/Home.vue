@@ -12,24 +12,27 @@
     <section class="container" style="padding-top: 40px; padding-bottom: 40px;">
       <div class="columns">
         <div class="column is-6">
-          <h1 class="title">
+          <h1 class="title is-3">
             Latest quizzes
           </h1>
+          <hr>
           <quizzes :amount="5"></quizzes>
         </div>
 
         <div class="column is-6">
-          <h1 class="title">
+          <h1 class="title is-3">
             Most completed
           </h1>
+          <hr>
           <quizzes :amount="5" sort-by="completions" sort-dir="desc"></quizzes>
         </div>
       </div>
 
       <div>
-        <h1 class="title">
+        <h1 class="title is-3">
           All quizzes
         </h1>
+        <hr>
         <quizzes sort-by="title" sort-dir="asc"></quizzes>
       </div>
     </section>

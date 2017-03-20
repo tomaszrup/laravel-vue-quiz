@@ -3,8 +3,12 @@
 body, html, #app {
   height: 100%;
   min-height: 100%;
+  width: 100%;
 }
 
+.container {
+  padding: 10px;
+}
 
 .fade-enter-active, .fade-leave-active {
   transition: .15s all ease-in-out;
@@ -32,7 +36,8 @@ body, html, #app {
   background-color: red;
   justify-content: center;
   align-items: center;
-  height: 80%;
+  flex-direction: column;
+  height: 95%;
   width: 100%;
   background:
     linear-gradient(
@@ -41,4 +46,49 @@ body, html, #app {
     ),
     url('/img/bg.jpg');
   background-size: cover;
+  background-attachment: fixed;
+}
+
+.text-white {
+  color: white;
+}
+
+.flex-centered-both {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.learn-more-arrow {
+  background-color: #fff;
+  height: 50px;
+  width: 50px;
+  border-bottom: 1px solid #ccc;
+  border-radius: 50%;
+  transform: translateY(50%);
+  color: #333;
+  text-align: center;
+  line-height: 50px;
+  font-size: 2em;
+  transition: .25s all ease-in-out;
+  z-index: 11;
+  cursor: pointer;
+}
+
+
+.learn-more-arrow:hover {
+  transform: translateY(50%) scale(1.2);
+}
+
+[v-cloak] {
+  display: none;
 }
