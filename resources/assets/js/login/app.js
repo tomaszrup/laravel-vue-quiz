@@ -1,6 +1,6 @@
-import './../bootstrap';
+import './bootstrap';
 
-Vue.component('welcome', require('./views/Welcome'));
+Vue.component('login', require('./views/Login'));
 
 const app = new Vue({
     el: '#app'

@@ -7,6 +7,8 @@ Vue.component('main-nav', require('./components/MainNav'))
 Vue.component('staggered-fade', require('./transitions/StaggeredFade'));
 Vue.component('loader', require('./components/Loader'));
 
+Vue.component('welcome', require('./views/Welcome'));
+
 window.bus = new Vue();
 
 const app = new Vue({

@@ -27,7 +27,7 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/';
 
-    //protected $loginPath = '/login';  
+    protected $loginPath = 'login';
 
 
     /**
@@ -42,5 +42,10 @@ class LoginController extends Controller
 
     public function username() {
       return 'login';
+    }
+
+    public function showLoginForm()
+    {
+        return view('auth.login');
     }
 }

@@ -20,7 +20,7 @@
       <div class="box" v-for="question, index in questions">
         <div class="columns">
           <div class="column is-12">
-            <div class="question-helper" style="display: flex; flex-direction: column">
+            <div class="question-helper flex-column">
               <button class="button is-danger" style="align-self: flex-end" @click="deleteQuestion(index)">X</button>
               Question #{{index+1}}
             </div>

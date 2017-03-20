@@ -8,10 +8,10 @@
           </h1>
           <h1 class="subtitle is-small">
             <span class="tag is-warning" v-if="quiz.completed">
-              You have already completed this quiz and won't receive points for completing it.
+              You have already completed this quiz.
             </span>
             <span class="tag is-warning" v-else-if="quiz.author.id == $root.user.id">
-              You are the author of this quiz and won't receive points for completing it.
+              You are the author of this quiz.
             </span>
           </h1>
         </div>
