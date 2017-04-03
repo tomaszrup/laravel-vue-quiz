@@ -24,8 +24,12 @@ class ApiController extends Controller
     return $this->setStatusCode(404)->respondWithError($message);
   }
 
-  public function respondUnprocessable($message = "Unprocessable entity") {
+  public function respondUnprocessable($message = "Unprocessable entity.") {
     return $this->setStatusCode(422)->respondWithError($message);
+  }
+
+  public function respondUnathorized($message = "These credentials do not match.") {
+    return $this->setStatusCode(401)->respondWithError($message);
   }
 
   public function respond($data) {
@@ -35,12 +39,7 @@ class ApiController extends Controller
   }
 
   public function respondWithError($message) {
-    return response([
-      'data' => [
-        'message' => $message,
-        'status' => $this->getStatusCode()
-      ]
-    ], $this->getStatusCode());
+    return response($message, $this->getStatusCode());
   }
 
 }

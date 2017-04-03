@@ -16,17 +16,25 @@ Auth::routes();
 
 //Route::get('welcome', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
 
-Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
+Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 
-  Route::resource('quizzes', 'Api\ApiQuizzesController');
+  Route::group(['middleware' => 'auth'], function() {
 
-  Route::resource('users', 'Api\ApiUsersController');
+    Route::resource('quizzes', 'ApiQuizzesController');
+    Route::post('quizzes/{quiz}/complete', 'ApiQuizzesController@complete');
 
-  Route::get('user', 'Api\ApiUsersController@user');
+    Route::resource('users', 'ApiUsersController');
 
-  Route::resource('quizzes.questions', 'Api\ApiQuizzesQuestionsController');
+    Route::resource('quizzes.questions', 'ApiQuizzesQuestionsController');
 
-  Route::post('quizzes/{quiz}/complete', 'Api\ApiQuizzesController@complete');
+    Route::get('user', 'ApiUsersController@user');
+
+  });
+
+  Route::post('login', 'ApiAuthController@login')->middleware('throttle:10,1');
+
+  Route::post('register/availability', 'ApiAuthController@availability')->middleware('throttle:10,1');
+
 
 });
 

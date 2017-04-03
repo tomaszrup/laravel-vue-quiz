@@ -9,9 +9,29 @@ body, html, #app {
   margin: 0px;
 }
 
+[v-cloak] {
+  display: none;
+}
+
+.flex-centered-both {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
 .container {
   padding: 10px;
 }
+
 
 .fade-enter-active, .fade-leave-active {
   transition: .15s all ease-in-out;
@@ -34,6 +54,7 @@ body, html, #app {
   align-items: center;
 }
 
+
 .login-page {
   display: flex;
   background-color: red;
@@ -43,10 +64,6 @@ body, html, #app {
   height: 95%;
   width: 100%;
   background:
-    linear-gradient(
-      rgba(0, 0, 0, 0.8),
-      rgba(0, 0, 0, 0.8)
-    ),
     url('/img/bg.jpg');
   background-size: cover;
   background-attachment: fixed;
@@ -67,20 +84,6 @@ body, html, #app {
   transform: none;
 }
 
-.flex-centered-both {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-1 {
-  flex: 1;
-}
 
 .learn-more-arrow {
   background-color: #fff;
@@ -103,12 +106,16 @@ body, html, #app {
   transform: translateY(50%) scale(1.2);
 }
 
-[v-cloak] {
-  display: none;
-}
-
 .main-image {
   width: 60%;
   max-width: 300px;
   height: auto;
+}
+
+.login-form-container {
+  width: 100%; max-width: 300px;
+}
+
+.login-form {
+  background-color: #111; padding: 20px; opacity: 0.85; border-radius: 5px; width: 100%;
 }

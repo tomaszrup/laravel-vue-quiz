@@ -3,7 +3,7 @@
     <staggered-fade v-if="!loading && !error">
       <router-link class="quiz box" style="color: #333" v-for="quiz, index in quizzes" :to="'/quiz/'+quiz.id" :key="index" :data-index="index">
         <h2 class="title">
-          {{quiz.title}}
+          {{quiz.title}} <br>
           <span class="tag is-dark">
             {{quiz.completions}} completions
           </span>
@@ -14,6 +14,8 @@
             created by You
           </span>
         </h2>
+        <p>
+        </p>
         <p>
           {{quiz.author.name}}, {{fromNow(quiz.created_at)}}
         </p>
@@ -59,7 +61,7 @@ export default {
         this.quizzes = response.data.data[0] ? response.data.data : [{title: 'There are no quizes yet :('}];
       }).catch((error) => {
         this.loading = false;
-        this.error = error.response.data.data.message;
+        this.error = error.response.data;
       });
     }
   }
