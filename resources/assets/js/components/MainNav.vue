@@ -18,7 +18,7 @@
           Home
         </router-link>
         <span class="nav-item">
-          <router-link to="add" class="button is-primary" exact>
+          <router-link to="/add" class="button is-primary" exact>
             <span>Add a quiz</span>
           </router-link>
         </span>

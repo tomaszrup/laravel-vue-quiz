@@ -66,6 +66,11 @@ export default {
       score: 0
     }
   },
+  beforeRouteLeave (to, from, next) {
+    if(this.finished) return next();
+    else if(confirm('Are you sure you want to leave? Your progress will not be saved.')) return next();
+    return next(false);
+  },
   created() {
     bus.$emit('quiz:entered', this.quizId);
     this.callApi();

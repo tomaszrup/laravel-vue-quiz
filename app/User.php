@@ -28,17 +28,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function completeQuiz($quiz) {
+    public function completeQuiz($quiz, $answers) {
 
-      if($quiz->user == $this) return $quiz;
-      if($this->hasCompleted($quiz)) return $quiz;
+      $score = $quiz->check($answers)->getScore();
+
+      if($quiz->user == $this) return $score;
+      if($this->hasCompleted($quiz)) return $score;
 
       Completion::create([
         'user_id' => $this->id,
-        'quiz_id' => $quiz->id
+        'quiz_id' => $quiz->id,
+        'score' => $score
       ]);
 
-      return $quiz;
+      return $score;
     }
 
     public function hasCompleted($quiz) {

@@ -12,7 +12,7 @@
 
     <div class="container">
       <div class="columns">
-        <div class="column is-7">
+        <div class="column is-12">
           <input type="text" v-model="title" class="quiz-title" placeholder="Your quiz title here">
         </div>
       </div>

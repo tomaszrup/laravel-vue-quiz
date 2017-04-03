@@ -17,9 +17,9 @@ class CreateCompletionsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('quiz_id')->unsigned();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
 
-            $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
+            $table->foreign('quiz_id')->references('id')->on('quizzes');
 
             $table->timestamps();
         });
