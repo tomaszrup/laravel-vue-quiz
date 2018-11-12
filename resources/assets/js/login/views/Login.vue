@@ -1,8 +1,6 @@
 <template>
   <div class="wrap" style="height: 100%">
     <div class="login-page">
-
-
         <div class="container flex-centered-both flex-column flex-1 login-form-container" style="display: none" v-show="showLogin" key="1">
           <h1 class="title is-1 text-white has-text-centered">
             <strong>The Quiz</strong>
@@ -43,13 +41,12 @@
          </p>
         </div>
 
-
         <div class="container flex-centered-both flex-column flex-1 login-form-container" style="display: none" v-show="showRegister" key="2">
           <h1 class="title is-1 text-white has-text-centered">
             <strong>The Quiz</strong>
           </h1>
 
-          <form class="form login-form" role="form" method="POST" action="">
+          <form class="form login-form" @submit.prevent="register()">
 
             <div class="field">
               <label class="label text-white">Name</label>
@@ -69,24 +66,26 @@
              <div class="field">
                <label class="label text-white">Password</label>
                <p class="control">
-                 <input name="password" class="input" type="password" placeholder="Password" required>
+                 <input name="password" class="input" type="password" placeholder="Password" required v-model="registerForm.password">
                </p>
              </div>
 
              <div class="field">
                <label class="label text-white">Confirm password</label>
                <p class="control">
-                 <input name="password_confirmation" class="input" type="password" placeholder="Password" required>
+                 <input name="password_confirmation" class="input" type="password" placeholder="Password" required v-model="registerForm.passwordConfirmation">
                </p>
              </div>
 
              <div class="field" style="margin-top: 10px">
                <p class="control has-text-centered">
-                 <button type="submit" class="button is-primaryisa" style="width: 100%">
+                 <button type="submit" :class="['button', 'is-primary', {'is-loading': submitting}]" style="width: 100%">
                      Register
                  </button>
                </p>
              </div>
+
+             <input type="hidden" name="_token" :value="token()">
          </form>
          <p class="control has-text centered" style="margin-top: 10px" @click="showRegister = false">
            <a>Go back</a>
@@ -170,43 +169,6 @@
         </div>
       </div>
     </div>
-    <!--<div class="hero is-medium is-info" style="margin-top: 50px;">
-      <div class="container" style="width: 100%">
-        <div class="hero-body">
-          <div class="columns is-12 has-text-centered">
-
-            <div class="column">
-              <h1 class="title">
-                48 <br>
-                Quizzes
-              </h1>
-            </div>
-
-            <div class="column">
-              <h1 class="title">
-                48 <br>
-                Users
-              </h1>
-            </div>
-
-            <div class="column">
-              <h1 class="title">
-                48 <br>
-                Questions
-              </h1>
-            </div>
-
-            <div class="column">
-              <h1 class="title">
-                48 <br>
-                Completed quizzes
-              </h1>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>-->
     <div class="footer" style="background-color: #111; margin-top: 50px">
       <div class="container">
         <div class="columns">
@@ -220,6 +182,7 @@
   </div>
 </template>
 <script>
+// TODO: move some of the code to their own components, so it's more clean
 export default {
   created() {
     window.addEventListener('scroll', this.scrollHandler);
@@ -249,6 +212,9 @@ export default {
     }
   },
   methods: {
+    token() {
+      return window.Laravel.csrfToken;
+    },
     checkAvailability() {
       axios.post('/api/register/availability', {
         login: this.registerForm.login
@@ -281,10 +247,20 @@ export default {
       }).then((response) => {
         location.reload();
       }).catch((error) => {
-        console.log('abc');
         this.loginForm.error = error.response.data;
         this.submitting = false;
       });
+    },
+    register() {
+      this.submitting = true;
+      // TODO: add front-end password confirmation
+      axios.post('/api/register', {
+        login: this.registerForm.login,
+        password: this.registerForm.password,
+        name: this.registerForm.name,
+      }).then(response => {
+        location.reload();
+      })
     },
     now() {
       let date = new Date;
