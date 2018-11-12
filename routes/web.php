@@ -33,6 +33,8 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function() {
 
   Route::post('login', 'ApiAuthController@login')->middleware('throttle:10,1');
 
+  Route::post('register', 'ApiAuthController@register');
+
   Route::post('register/availability', 'ApiAuthController@availability')->middleware('throttle:10,1');
 
 
