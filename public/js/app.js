@@ -51289,7 +51289,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('loader')], 1) : _c('div', {
     staticClass: "container"
   }, [_c('h1', {
-    staticClass: "title"
+    staticClass: "title",
+    staticStyle: {
+      "margin-top": "30px"
+    }
   }, [_vm._v("\n      Your score: " + _vm._s(_vm.score) + "/" + _vm._s(_vm.questions.length) + "\n    ")]), _vm._v(" "), _c('progress', {
     staticClass: "progress is-primary",
     attrs: {
