@@ -45,7 +45,7 @@
       <loader></loader>
     </div>
     <div class="container" v-else>
-      <h1 class="title">
+      <h1 class="title" style="margin-top: 30px">
         Your score: {{score}}/{{questions.length}}
       </h1>
       <progress class="progress is-primary" :value="score" :max="questions.length"></progress>
