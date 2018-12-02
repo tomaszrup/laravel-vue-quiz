@@ -33,7 +33,12 @@ class ApiAuthController extends ApiController
     }
 
     public function register(Request $request) {
-      // TODO: add validation
+
+      $this->validate($request, [
+          'name' => 'required|max:255',
+          'login' => 'required|max:255|unique:users',
+          'password' => 'required|min:6|confirmed',
+      ]);
 
       $user = User::create($request->all());
       if($user) Auth::login($user);
