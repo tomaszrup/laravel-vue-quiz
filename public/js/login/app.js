@@ -797,6 +797,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 // TODO: move some of the code to their own components, so it's more clean
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -817,7 +818,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       registerForm: {
         login: '',
         password: '',
-        passwordConfirmation: '',
+        password_confirmation: '',
         name: '',
         availability: {
           okay: null,
@@ -873,14 +874,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     register: function register() {
+      var _this3 = this;
+
       this.submitting = true;
-      // TODO: add front-end password confirmation
+
       axios.post('/api/register', {
         login: this.registerForm.login,
         password: this.registerForm.password,
+        password_confirmation: this.registerForm.password_confirmation,
         name: this.registerForm.name
       }).then(function (response) {
         location.reload();
+      }).catch(function (error) {
+        _this3.loginForm.error = error.response.data;
+        _this3.submitting = false;
       });
     },
     now: function now() {
@@ -1075,7 +1082,7 @@ module.exports = InterceptorManager;
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 
@@ -1579,8 +1586,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.registerForm.passwordConfirmation),
-      expression: "registerForm.passwordConfirmation"
+      value: (_vm.registerForm.password_confirmation),
+      expression: "registerForm.password_confirmation"
     }],
     staticClass: "input",
     attrs: {
@@ -1590,15 +1597,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "required": ""
     },
     domProps: {
-      "value": (_vm.registerForm.passwordConfirmation)
+      "value": (_vm.registerForm.password_confirmation)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.registerForm, "passwordConfirmation", $event.target.value)
+        _vm.$set(_vm.registerForm, "password_confirmation", $event.target.value)
       }
     }
-  })])]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), (_vm.loginForm.error) ? _c('p', {
+    staticClass: "help is-danger"
+  }, [_vm._v(_vm._s(_vm.loginForm.error))]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "field",
     staticStyle: {
       "margin-top": "10px"

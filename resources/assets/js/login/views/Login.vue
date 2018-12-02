@@ -73,8 +73,9 @@
              <div class="field">
                <label class="label text-white">Confirm password</label>
                <p class="control">
-                 <input name="password_confirmation" class="input" type="password" placeholder="Password" required v-model="registerForm.passwordConfirmation">
+                 <input name="password_confirmation" class="input" type="password" placeholder="Password" required v-model="registerForm.password_confirmation">
                </p>
+               <p class="help is-danger" v-if="loginForm.error">{{loginForm.error}}</p>
              </div>
 
              <div class="field" style="margin-top: 10px">
@@ -201,7 +202,7 @@ export default {
       registerForm: {
         login: '',
         password: '',
-        passwordConfirmation: '',
+        password_confirmation: '',
         name: '',
         availability: {
           okay: null,
@@ -253,14 +254,18 @@ export default {
     },
     register() {
       this.submitting = true;
-      // TODO: add front-end password confirmation
+
       axios.post('/api/register', {
         login: this.registerForm.login,
         password: this.registerForm.password,
+        password_confirmation: this.registerForm.password_confirmation,
         name: this.registerForm.name,
       }).then(response => {
         location.reload();
-      })
+      }).catch((error) => {
+        this.loginForm.error = error.response.data;
+        this.submitting = false;
+      });
     },
     now() {
       let date = new Date;
