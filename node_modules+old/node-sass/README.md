@@ -5,7 +5,7 @@
 <table>
   <tr>
     <td>
-      <img width="77px" alt="Sass logo" src="https://rawgit.com/sass/node-sass/master/media/logo.svg" />
+      <img width="77px" alt="Sass logo" src="https://cdn.jsdelivr.net/gh/sass/node-sass@master/media/logo.svg" />
     </td>
     <td valign="bottom" align="right">
       <a href="https://www.npmjs.com/package/node-sass">
